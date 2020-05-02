@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+
+
+
+{% block content %}
+    {% if post %}
+    <div class="col-lg-10 offset-lg-1 bg-dark text-white">
+        <h2 class="p-2 text-info">{{post.title}}</h2>
+
+        <div class="container mt-5 p-4">
+
+        <strong><sub>Last Updated :  {{post.updated}}</sub></strong>
+        <hr>
+
+        <p>{{post.body|linebreaks}}</p>
+        </div>
+    </div>
+
+    {% endif %}
+{% endblock %}
+
