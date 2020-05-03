@@ -1,0 +1,18 @@
+
+
+{% block content %}
+
+    {% if registered %}
+        <strong>Thank You for Registering With Us </strong>
+        {% else %}
+        <strong class="display-3 mb-2">Register Here...</strong>
+
+        <form action="{%url 'register' %}" method="POST">
+            {% csrf_token %}
+            {{user_form.as_p}}
+            <input type="submit" class="btn btn-success" name="submit" value="Register">
+            <p class="p-2 m-1">Already a member? <a href="{%url 'login' %}">LOGIN here ...</a></p>
+        </form>
+    {% endif  %}
+
+{% endblock %}

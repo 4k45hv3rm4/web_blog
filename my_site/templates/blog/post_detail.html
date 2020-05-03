@@ -18,5 +18,42 @@
     </div>
 
     {% endif %}
+    <div class="col-lg-10 offset-lg-1 ">
+    {% with comments.count as total_comments %}
+        <h2>{{total_comments}} comment{{total_comments|pluralize}}</h2>
+    {% endwith %}
+    {% for comment  in comments %}
+    <div class="col-lg-10 offset-lg-1 comment">
+        <p class="info">
+            Comment {{forloop.counter}}by {{comment.name}}
+            <br>{{comment.created}}
+            <div class="bg-light"><i>{{comment.body}}</i>
+            </div>
+
+        </p>
+    </div>
+    </div>
+<div class="col-lg-10 offset-lg-1">
+    {%empty%}
+
+    <p>There are no comments yet</p>
+    </div>
+    {% endfor %}
+    <div class="col-lg-10 offset-lg-1">
+
+    {%if new_comment %}
+    <h2>Your comment has been added.</h2>
+    </div>
+    {%else%}
+    <div class="col-lg-10 offset-lg-1">
+
+    <h2>Add a new comment here...</h2>
+    <form action="" method="post">
+        {{comment_form.as_p}}
+        {%csrf_token%}
+        <p><input type="submit" value="Add comment"></p>
+    </form>
+    </div>
+    {% endif %}
 {% endblock %}
 
