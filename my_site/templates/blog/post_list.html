@@ -1,15 +1,17 @@
 {% extends 'blog/base.html' %}
 
         {% block content %}
-            <div class="col-lg-10 offset-lg-1 bg-dark text-white">
-            <h1 class="p-3">All   posts</h1>
-            <div class="container mt-5 p-4">
+            <div class="col-lg-10 offset-lg-1 bg-white text-dark pt-3">
+            <h1 class="px-5">Top Posts</h1>
+            <div class="container mt-4 p-4">
             {% for post in posts%}
                <a href="{{post.get_absolute_url}}" class="btn-link text-decoration-none text-info ">{{post.title}}</a>
-
                <strong class="text-success"><sub>{{post.publish}} by {{post.author}} </sub></strong>
                <p>{{ post.body|truncatewords:30|linebreaks }}</p>
-            {% endfor %}
+               <hr>
+                {% endfor %}
+                    {% include 'blog/pagination.html' with page=posts%}
+                </div>
+
             </div>
-        </div>
         {% endblock %}
