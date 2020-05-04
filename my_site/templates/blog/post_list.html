@@ -12,28 +12,29 @@
               {% endif %}
             {% for post in posts%}
 
-               <a href="{{post.get_absolute_url}}" class="btn-link text-decoration-none text-info ">{{post.title}}</a>
+               <a href="{{post.get_absolute_url}}" class="btn-link text-decoration-none text-info " style="font-family: Montserrat, Roboto Condensed; font-size: 20px">{{post.title}}</a>
 
                <strong class="text-success"><sub>{{post.publish}} by </sub><sub class="text-danger"></sub></strong>
-               <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+               <p  class="text-justify">{{ post.body|truncatewords:30|linebreaks }}</p>
 
                <hr>
                 <p>Tags:
                 {% for tag in post.tags.all %}
-                   <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
-                {% if not forloop.last %},{% endif %}
+                   <a style="border-radius:10px; padding:3px;font-size: 15px;font-family: monospace;" class="text-decoration-none text-white bg-dark" href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
+                {% if not forloop.last %}{% endif %}
                 {% endfor %}
               </p>
-                {% endfor %}
+              <div class="p-2 m-2"></div>
+            {% endfor %}
                     {% include 'blog/pagination.html' with page=posts %}
-                </div>
+            </div>
 
             </div>
-            <div class="col-lg-2">
-              <p><strong>Tags:</strong>
-                <ul class="text-decoration-none">
+            <div class="container col-lg-2 bg-light">
+              <p><h2 class="bg-white text-center">Tags:</h2>
+                <ul class="text-decoration-none p-2">
                 {% for tag in tags %}
-                  <span style="text-decoration-style: none;"> <a class="text-decoration-none" href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
+                  <span style="text-decoration-style: none;" class="text-white"> <a style="border-radius:10px; padding:3px;font-size: 15px;font-family: monospace;" class="text-decoration-none text-white bg-dark text-justify" href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
                 {% if not forloop.last %}{% endif %}
                   </span>
                 {% endfor %}

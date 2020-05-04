@@ -7,6 +7,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
+
+
 
 def register(request):
     registered=False
@@ -39,8 +42,6 @@ def post_list(request, tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
-
-    print(tag)
     paginator = Paginator(object_list, 3) #3 posts per page
     page = request.GET.get('page')
     tags = Tag.objects.all()
@@ -75,5 +76,15 @@ def post_detail(request, year, month, day, post):
     else:
         comment_form = CommentForm()
 
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids)\
+        .exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
+    .order_by('-same_tags','-publish')[:4]
 
-    return render(request,'blog/post_detail.html', {'comments':comments,'post':post,'new_comment':new_comment, 'comment_form':comment_form})
+    return render(request,'blog/post_detail.html', {'comments':comments,
+            'post':post,
+            'new_comment':new_comment,
+            'comment_form':comment_form,
+            'similar_posts':similar_posts
+        })
