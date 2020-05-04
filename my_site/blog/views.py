@@ -1,5 +1,6 @@
 from .models import Post, Comment
 from django.shortcuts import render
+from taggit.models import Tag
 from .forms import UserForm, CommentForm
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -32,22 +33,29 @@ def user_login(request):
                 login(request, user)
                 return HttpResponseRedirect
 
-def post_list(request):
-    posts = Post.published.all()
+def post_list(request, tag_slug=None):
+    object_list = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(posts, 3) #3 posts per page
+    print(tag)
+    paginator = Paginator(object_list, 3) #3 posts per page
     page = request.GET.get('page')
-
+    tags = Tag.objects.all()
+    print(tags)
     try:
         posts=paginator.page(page)
     except PageNotAnInteger:
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
+
     return render(request,
                     'blog/post_list.html',
                     {'page':page,
-                    'posts':posts})
+                    'posts':posts,'tag':tag, 'tags':tags})
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
