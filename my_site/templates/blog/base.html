@@ -1,4 +1,5 @@
-<!doctype html>
+
+<!Doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -14,18 +15,28 @@
   <body>
 
     <div class="container-fluid ">
-
-        <nav class="nav p-3 justify-content-center">
-            <a href="{% url 'blog:post_list' %}" class="nav-link btn-link">Home</a>
-            <a href="" class="nav-link btn-link">Blog</a>
-            <a href="" class="nav-link btn-link">About Us</a>
-            <!-- <a href="" class="nav-link btn-link">Home</a> -->
+        <div class="row">
+        <div class="col-lg-2 bg-info p-3 text-center px-1 text-white">  <h1 class="display-4">Akash's Blog</h1></div>
+        <div class="col-lg-10">
+        <nav class="nav bg-dark p-3 justify-content-end px-5">
+            <a href="{% url 'blog:post_list' %}" class="nav-link btn-link text-white">Home</a>
+            <a href="" class="nav-link btn-link text-white">Blog</a>
+            <a href="{% url 'blog:post_feed'%}" class="nav-link btn btn-link bg-danger  text-white" >Subscribe to my RSS feed</a>
         </nav>
+        </div>
+        </div>
+
             <!-- <h1>Posts</h1> -->
         {% block content %}
 
         {% endblock %}
+        <footer class="footer nav bg-success p-3 justify-content-center px-5">
+            <a href="{% url 'blog:post_list' %}" class="nav-link btn-link text-white">blog</a>
+            <a href="" class="nav-link btn-link text-white">Twitter</a>
+            <a href="" class="nav-link btn-link text-white">Facebook</a>
+        </footer>
         </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

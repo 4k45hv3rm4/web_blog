@@ -5,14 +5,14 @@
 
 {% block content %}
 <div class="row">
-        <div class="col-lg-8 offset-lg-1 bg-white text-dark">
+        <div class="col-lg-8 mt-5 offset-lg-1 bg-white text-dark">
             <h2 class="p-1 text-info"style="font-family: Montserrat, Roboto Condensed; font-size: 30px" >{{post.title}}
 
             </h2>
 
             <div class="container  p-2">
 
-            <div class="justify-content-center text-success"><h5>  {{post.created}}|Tags:
+            <div class="justify-content-center text-success"><h5>  {{post.created.date}}|Tags:
                 {% for tag in post.tags.all %}
                    <a style="border-radius:10px; padding:3px;font-size: 15px;font-family: monospace;" class="text-decoration-none text-white bg-dark" href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
                 {% if not forloop.last %}{% endif %}
@@ -27,7 +27,7 @@
             {% for comment  in comments %}
                 <p class="info">
                     Comment {{forloop.counter}}by {{comment.name}}
-                    <br><sub><strong style="font-family: sans-serif;"class="text-success">{{comment.created}}</strong></sub>
+                    <br><sub><strong style="font-family: sans-serif;"class="text-success">{{comment.created.date}}</strong></sub>
                     <div class="bg-light bg-info" style="border:1px solid black; padding: 5px"><i style="background-color: teal;color: white;padding: 2px">{{comment.body}}</i>
                     </div>
 
