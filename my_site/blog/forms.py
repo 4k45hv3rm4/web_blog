@@ -22,3 +22,8 @@ class CommentForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in (self.fields['name'],self.fields['email'],self.fields['body']):
                 field.widget.attrs.update({'class':'form-control'})
+
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))

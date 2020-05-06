@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>{%block title%}Akash's Blog{%endblock%}</title>
   </head>
   <body>
 
@@ -20,7 +20,8 @@
         <div class="col-lg-10">
         <nav class="nav bg-dark p-3 justify-content-end px-5">
             <a href="{% url 'blog:post_list' %}" class="nav-link btn-link text-white">Home</a>
-            <a href="" class="nav-link btn-link text-white">Blog</a>
+            <a href="{% url 'blog:post_search' %}" class="nav-link btn-link text-white">Search post</a>
+
             <a href="{% url 'blog:post_feed'%}" class="nav-link btn btn-link bg-danger  text-white" >Subscribe to my RSS feed</a>
         </nav>
         </div>
@@ -30,10 +31,10 @@
         {% block content %}
 
         {% endblock %}
-        <footer class="footer nav bg-success p-3 justify-content-center px-5">
+        <footer class="footer nav bg-success p-3 justify-content-center px-5" style="position: relative; bottom: 0px; width:100%;margin-right: 50px;">
             <a href="{% url 'blog:post_list' %}" class="nav-link btn-link text-white">blog</a>
-            <a href="" class="nav-link btn-link text-white">Twitter</a>
-            <a href="" class="nav-link btn-link text-white">Facebook</a>
+            <a href="https://twitter.com/Akashverm4" class="nav-link btn-link text-white">Twitter</a>
+            <a href="https://www.linkedin.com/in/akash-verma-8473a6151/" class="nav-link btn-link text-white">LinkedIn</a>
         </footer>
         </div>
 

@@ -18,7 +18,7 @@
                 {% if not forloop.last %}{% endif %}
                 {% endfor %}</h5></div>
             <hr>
-            <p class="text-justify">{{post.body|linebreaks}}</p>
+            <p class="text-justify col-lg-6 p-3 px-3 m-3" >{{post.body|linebreaks}}</p>
             </div>
 
             {% with comments.count as total_comments %}

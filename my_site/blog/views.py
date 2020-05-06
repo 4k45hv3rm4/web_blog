@@ -1,15 +1,14 @@
 from .models import Post, Comment
 from django.shortcuts import render
 from taggit.models import Tag
-from .forms import UserForm, CommentForm
+from .forms import UserForm, CommentForm, SearchForm
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
-
-
+from django.contrib.postgres.search import SearchVector, SearchQuery,SearchRank
 
 def register(request):
     registered=False
@@ -87,3 +86,18 @@ def post_detail(request, year, month, day, post):
             'comment_form':comment_form,
             'similar_posts':similar_posts
         })
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results =[]
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            search_vector = SearchVector('title', 'body')
+            search_query = SearchQuery(query)
+            results = Post.objects.annotate(search=search_vector, rank=SearchRank(search_vector, search_query)).filter(search=search_query).order_by('-rank')
+
+    return render(request, 'blog/post_search.html',{'form':form, 'query':query,'results':results})
