@@ -44,16 +44,16 @@
 
 
             <h2>Add a new comment here...</h2>
-            <form action="" method="post">
+            <form action="" method="post " class="">
                 {{comment_form.as_p}}
                 {%csrf_token%}
-                <p><input type="submit" value="Add comment"></p>
+                <p><input type="submit" class=" btn btn-success" value="Add comment"></p>
             </form>
         </div>
         <div class="jumbotron col-lg-2">
             <h2 class="heading">Similar posts</h2>
             {% for post in similar_posts %}
-                    <a href="{{post.get_absolute_url }}"style="border-radius:5px; padding:1px;font-size: 15px;font-family: Roboto;" class=" text-decoration-none text-white bg-dark">{{post.title}} <br>
+                    <a href="{{post.get_absolute_url }}"style="border-radius:5px; padding:3px;font-size: 15px;font-family: Roboto;background-color: teal;" class=" text-decoration-none text-white ">{{post.title}} <br>
                     </a>
 
             {% empty %}
